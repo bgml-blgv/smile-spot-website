@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<!-- ==========================================================================
+     SMILE SPOT – Главен HTML файл  (index.html)
+     Структура на страницата:
+     1.  <head>       – мета тагове, SEO, шрифтове, favicon
+     2.  <nav>        – навигация (sticky + hamburger за мобилно)
+     3.  <header>     – Hero секция (лого, H1, слоган, бутон)
+     4.  #about       – За нас
+     5.  #team        – Нашият екип (лекарски карти)
+     6.  #services    – Услуги и ценоразпис
+     7.  #reviews     – Отзиви (карусел)
+     8.  #results     – Преди и след (Before/After слайдер)
+     9.  #faq-form    – Форма за въпроси (FormSubmit)
+     10. #contact     – Контакти + Google Maps
+     11. <footer>
+     12. Модали       – Записване на час (Google Calendar)
+     13. GDPR банер
+     14. JavaScript   – всички скриптове накрая
+     ========================================================================== -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SMILE SPOT | Зъболекарски кабинет София</title>
+
+  <!-- ── SEO мета тагове ── -->
+  <meta name="description"
+    content="SMILE SPOT – модерна стоматология в София. Профилактика, лечение и естетична стоматология. Запази час още днес!">
+  <meta name="keywords"
+    content="зъболекар София, стоматолог Борово, SMILE SPOT, естетична стоматология">
+  <meta name="author" content="SMILE SPOT">
+
+  <!-- ── Local SEO Schema (структурирани данни за Google) ── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dentist",
+    "name": "SMILE SPOT",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "ул. Невестина скала 5",
+      "addressLocality": "София",
+      "postalCode": "1680",
+      "addressCountry": "BG"
+    },
+    "telephone": "+359887993003"
+  }
+  </script>
+
+  <!-- ── Google Fonts: Playfair Display (заглавия) + Nunito (текст) ── -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ── Font Awesome – иконки (fa-solid, fa-brands) ── -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- ── AOS – анимации при scroll ── -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <!-- ── Главен CSS файл ── -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ── Favicon комплект ── -->
+  <link rel="icon" type="image/png" sizes="32x32"   href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48"   href="favicon-48.png">
+  <link rel="icon" type="image/png" sizes="64x64"   href="favicon-64.png">
+  <link rel="apple-touch-icon"      sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="android-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="android-512.png">
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       2. НАВИГАЦИЯ
+       На desktop: хоризонтални линкове.
+       На мобилно: hamburger бутон → dropdown меню.
+       JS: функция closeMenu() затваря менюто при клик на линк.
+       ══════════════════════════════════════════════════════════════════════ -->
+  <nav class="nav">
+    <!-- Hamburger бутон – видим само на мобилно (CSS: display:none на desktop) -->
+    <button class="hamburger" id="hamburger" aria-label="Меню">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Nav линкове – onclick затваря мобилното меню -->
+    <div class="nav-links" id="navLinks">
+      <a href="#about"   onclick="closeMenu()">За нас</a>
+      <a href="#team"   onclick="closeMenu()">Нашият екип</a>
+      <a href="#services" onclick="closeMenu()">Услуги</a>
+      <a href="#reviews" onclick="closeMenu()">Отзиви</a>
+      <a href="#results" onclick="closeMenu()">Усмивки</a>
+      <a href="#faq-form" onclick="closeMenu()">Въпроси</a>
+      <a href="#contact" onclick="closeMenu()">Контакти</a>
+    </div>
+  </nav>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       3. HERO СЕКЦИЯ
+       Фон: main.jpg с тъмен overlay (CSS gradient).
+       H1 е важен за SEO – главното ключово заглавие на страницата.
+       ══════════════════════════════════════════════════════════════════════ -->
+  <header class="hero" data-aos="fade-down">
+    <div class="hero-content">
+      <!-- Лого – кръгло с жълта рамка (CSS: border-radius 50%) -->
+      <img src="logo.png" alt="Smile Spot Logo" class="hero-logo">
+
+      <!-- H1 – главно SEO заглавие (само 1 на страница!) -->
+      <h1>SMILE SPOT</h1>
+
+      <p>Мястото за всяка усмивка! / The spot for every smile!</p>
+
+      <!-- Бутон към #team секцията -->
+      <a href="#team" class="book-btn yellow-btn">Запиши час</a>
+    </div>
+  </header>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       4. ЗА НАС
+       Grid: текст (1.2fr) | 3 снимки (1fr).
+       На мобилно минава на 1 колона (CSS @media).
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="about" data-aos="fade-up">
+    <h2 class="section-title">За нас</h2>
+
+    <div class="about-layout">
+      <!-- Текстова колона -->
+      <div class="about-text">
+        <p>
+          Smile Spot е модерна дентална клиника, която предлага висококачествено дентално лечение в спокойна и
+          комфортна среда. Нашата мисия е да осигурим професионална стоматологична грижа, съобразена с
+          индивидуалните нужди на всеки пациент.
+          <br><br>
+          За нас най-важни са комфортът, спокойствието и усмивката на нашите пациенти. Стремим се да изграждаме
+          дългосрочни отношения, основани на доверие, коректност и високо качество на работа. В Smile Spot не
+          лекуваме просто зъби – ние се грижим за хора.
+          <br><br>
+          Работим със съвременна апаратура и прилагаме модерни, щадящи методи в профилактиката, естетичната
+          стоматология, лечението на зъби и венци, както и при възстановяване на усмивката. Нашият екип от
+          квалифицирани дентални специалисти гарантира безопасни, прецизни и дълготрайни резултати.
+          <br><br>
+          Запознайте се с нашите специалисти – техния опит, образование и индивидуален подход към всеки
+          пациент, и изберете професионалист, на когото можете да се доверите.
+        </p>
+      </div>
+
+      <!-- Снимки – grid auto-fit (CSS) -->
+      <div class="about-images">
+        <img src="zanas2.png" alt="Smile Spot интериор" loading="lazy">
+        <img src="zanas1.png" alt="Smile Spot кабинет" loading="lazy">
+        <img src="zanas3.png" alt="Smile Spot чакалня" loading="lazy" >
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       5. НАШИЯТ ЕКИП
+       3 лекарски карти в flex ред.
+       Бутоните отварят Google Calendar модали (виж секция 12).
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="team" data-aos="fade-up">
+    <h2 class="section-title">Нашият екип</h2>
+
+    <div class="team-row">
+
+      <!-- ── Лекар 1: Д-р Самер Макки ── -->
+      <div class="doctor-card">
+        <img src="sami3.jpg" alt="Д-р Самер Макки" loading="lazy">
+        <h3>Д-р Самер Макки</h3>
+        <p class="specialty">Дентален лекар</p>
+        <!-- НЗОК лого – показва, че лекарят работи с НЗОК -->
+        <img src="nzok_logo.png" alt="НЗОК" class="nzok-mini" loading="lazy">
+        <p class="education">
+          🦷 Микроскопска ендодонтия и терапия<br>
+          🦷 Протетична и естетична дентална медицина<br>
+          🦷 Имплантология и тотална рехабилитация
+        </p>
+        <!-- onclick отваря modal #calendarModal -->
+        <button class="book-btn" onclick="openCalendar()">Запиши час</button>
+      </div>
+
+      <!-- ── Лекар 2: Д-р Александра Милошева ── -->
+      <div class="doctor-card">
+        <img src="aleks1.jpg" alt="Д-р Александра Милошева" loading="lazy">
+        <h3>Д-р Александра Милошева</h3>
+        <p class="specialty">Дентален лекар</p>
+        <img src="nzok_logo.png" alt="НЗОК" class="nzok-mini" loading="lazy">
+        <p class="education">
+          🦷 Терапия<br>
+          🦷 Протетика<br>
+          🦷 Профилактика<br>
+          🦷 Ендодонтия<br>
+          🦷 Детска дентална медицина
+        </p>
+        <!-- onclick отваря modal #calendarModal2 -->
+        <button class="book-btn" onclick="openCalendar2()">Запиши час</button>
+      </div>
+
+      <!-- ── Лекар 3: Д-р Божена Кочева-Пенева ── -->
+      <!-- Записването е чрез формата в #faq-form, не чрез календар -->
+      <div class="doctor-card">
+        <img src="boji2.jpg" alt="Д-р Божена Кочева-Пенева" loading="lazy">
+        <h3>Д-р Божена Кочева-Пенева</h3>
+        <p class="specialty">Дентален лекар</p>
+        <img src="nzok_logo.png" alt="НЗОК" class="nzok-mini" loading="lazy">
+        <p class="education">
+          🦷 Профилактика<br>
+          🦷 Функционална ортодонтия<br>
+          🦷 Хибридно лечение с алайнери<br>
+          🦷 Фиксирана техника T-control<br>
+          🦷 Естетични възстановявания
+        </p>
+        <a href="#faq-form" class="book-btn">Със запитване</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       6. УСЛУГИ И ЦЕНОРАЗПИС
+       Всяка .service-item има:
+         .card  = жълт хедър с Font Awesome икона
+         ul.prices = редове с CSS grid (описание | цена)
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="services" data-aos="fade-up">
+    <h2 class="section-title">Нашите услуги</h2>
+
+    <div class="services services--stacked">
+
+      <!-- ── Профилактика ── -->
+      <div class="service-item">
+        <div class="card">
+          <i class="fa-solid fa-shield-heart"></i>
+          Профилактика
+        </div>
+        <ul class="prices">
+          <li><span>Преглед със снемане на зъбен статус</span><span>20,00 €</span></li>
+          <li><span>Клинична орална хигиена – отстраняване на зъбен камък, плака и оцветявания, полиране</span><span>40,00 € – 80,00 €</span></li>
+          <li><span>Флуоризиране на съзъбие</span><span>20,00 €</span></li>
+          <li><span>Полиране на съзъбие с Air Flow</span><span>20,00 €</span></li>
+          <li><span>Поставяне на силант</span><span>30,00 €</span></li>
+        </ul>
+      </div>
+
+      <!-- ── Детска дентална медицина ── -->
+      <div class="service-item">
+        <div class="card">
+          <i class="fa-solid fa-child-reaching"></i>
+          Детска дентална медицина
+        </div>
+        <ul class="prices">
+          <li><span>Лечение на кариес на временен зъб – една повърхност</span><span>30,00 € – 50,00 €</span></li>
+          <li><span>Лечение на кариес на временен зъб – две повърхности</span><span>40,00 € – 60,00 €</span></li>
+          <li><span>Лечение на кариес на временен зъб – три повърхности</span><span>50,00 € – 70,00 €</span></li>
+          <li><span>Лечение на кариес на временен зъб – четири повърхности</span><span>60,00 € – 80,00 €</span></li>
+          <li><span>Ендодонтско лечение на временен зъб (вкл. обтурация след кореново лечение)</span><span>100,00 €</span></li>
+        </ul>
+      </div>
+
+      <!-- ── Терапевтична дентална медицина ── -->
+      <div class="service-item">
+        <div class="card">
+          <i class="fa-solid fa-stethoscope"></i>
+          Терапевтична дентална медицина
+        </div>
+        <ul class="prices">
+          <li><span>Лечение на кариес – една повърхност</span><span>40,00 € – 60,00 €</span></li>
+          <li><span>Лечение на кариес – две повърхности</span><span>50,00 € – 70,00 €</span></li>
+          <li><span>Лечение на кариес – три повърхности</span><span>60,00 € – 80,00 €</span></li>
+          <li><span>Лечение на кариес – четири повърхности</span><span>70,00 € – 90,00 €</span></li>
+          <li><span>Калциева подложка при биологично лечение</span><span>20,00 €</span></li>
+          <li><span>Изграждане на липсващи стени преди кореново лечение</span><span>40,00 € – 60,00 €</span></li>
+          <li><span>Кореново лечение – 1 канал</span><span>50,00 € – 80,00 €</span></li>
+          <li><span>Кореново прелекуване – 1 канал</span><span>70,00 € – 100,00 €</span></li>
+          <li><span>Изграждане на зъб с фиброщифт след кореново лечение</span><span>80,00 €</span></li>
+        </ul>
+      </div>
+
+      <!-- ── Хирургия и имплантология ── -->
+      <div class="service-item">
+        <div class="card">
+          <i class="fa-solid fa-user-doctor"></i>
+          Хирургия и имплантология
+        </div>
+        <ul class="prices">
+          <li><span>Екстракция на еднокоренов зъб с анестезия</span><span>80,00 €</span></li>
+          <li><span>Екстракция на зъб с два корена с анестезия</span><span>100,00 €</span></li>
+          <li><span>Екстракция на зъб с три корена с анестезия</span><span>120,00 €</span></li>
+          <li><span>Екстракция на мъдрец с анестезия</span><span>150,00 €</span></li>
+          <li><span>Инцизия и дренаж</span><span>40,00 €</span></li>
+          <li><span>Поставяне на имплант</span><span>500,00 €</span></li>
+          <li><span>Разкриване на имплант</span><span>50,00 €</span></li>
+        </ul>
+      </div>
+
+      <!-- ── Протетична дентална медицина ── -->
+      <div class="service-item">
+        <div class="card">
+          <i class="fa-solid fa-crown"></i>
+          Протетична дентална медицина
+        </div>
+        <ul class="prices">
+          <li><span>Металокерамична корона</span><span>200,00 €</span></li>
+          <li><span>Циркониева корона, E-max корона</span><span>350,00 €</span></li>
+          <li><span>Временна корона</span><span>70,00 €</span></li>
+          <li><span>Корона върху имплант – металокерамика</span><span>400,00 €</span></li>
+          <li><span>Корона върху имплант – цирконий</span><span>700,00 €</span></li>
+          <li><span>Частична плакова протеза</span><span>200,00 €</span></li>
+          <li><span>Цяла плакова протеза</span><span>300,00 €</span></li>
+          <li><span>Частична протеза Thermosens</span><span>300,00 €</span></li>
+          <li><span>Цяла протеза Thermosens</span><span>400,00 €</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       7. ОТЗИВИ – КАРУСЕЛ
+       .reviews-track = flex лента, движена с translateX от JS.
+       Навигация: стрелки (#revPrev / #revNext) + точки (#revDots).
+       Auto-play: setInterval на 5 сек (в JS блока долу).
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="reviews" data-aos="fade-up">
+    <h2 class="section-title">Какво казват нашите пациенти</h2>
+
+    <div class="reviews-carousel">
+      <!-- Лентата с карти – JS я мести с style.transform -->
+      <div class="reviews-track" id="reviewsTrack">
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>„Невероятно позитивно и приятелско отношение и изключително професионална услуга! The best! 😎
+            Д-р Макки компетентно и обстойно обяснява всичко на разбираем език. Много внимателен, прецизен
+            и добър специалист! Препоръчвам горещо с две ръце!"</p>
+          <div class="review-author">
+            <div class="review-avatar">М</div>
+            <span>Пациент на Smile Spot</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>„Много съм доволна от доктор Макки. Получих професионално отношение, внимателно обяснение на
+            всяка стъпка от процедурата и много грижа. Атмосферата е спокойна и предразполагаща.
+            Горещо препоръчвам!"</p>
+          <div class="review-author">
+            <div class="review-avatar">К</div>
+            <span>Пациент на Smile Spot</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>„Изключителни професионалисти! Много любезно отношение и внимателен подход!
+            Напълно препоръчвам с две ръце!"</p>
+          <div class="review-author">
+            <div class="review-avatar">Г</div>
+            <span>Пациент на Smile Spot</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>„Не само д-р Макки е изключително добър професионалист, но и оборудването в кабинета е на
+            високо ниво. Този доктор предразполага всеки наистина да се усмихне. Само успехи Ви пожелавам
+            докторе!"</p>
+          <div class="review-author">
+            <div class="review-avatar">Д</div>
+            <span>Пациент на Smile Spot</span>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p>„Най-внимателният и обясняващият в детайли зъболекар. Винаги съм наясно какво би трябвало
+            да се направи, какво се прави и какво да очаквам."</p>
+          <div class="review-author">
+            <div class="review-avatar">А</div>
+            <span>Пациент на Smile Spot</span>
+          </div>
+        </div>
+
+      </div><!-- /reviews-track -->
+
+      <!-- Навигационна лента -->
+      <div class="reviews-nav">
+        <button class="rev-btn" id="revPrev" aria-label="Предишен">&#8592;</button>
+        <div class="rev-dots" id="revDots"></div><!-- Точките се генерират от JS -->
+        <button class="rev-btn" id="revNext" aria-label="Следващ">&#8594;</button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       8. ПРЕДИ И СЛЕД (BEFORE/AFTER СЛАЙДЕР)
+       Всеки .ba-box съдържа 2 снимки:
+         - .ba-img (преди) – отдолу, пълна ширина
+         - .ba-img.ba-after (след) – отгоре, clip-path inset()
+       + .ba-line (вертикална линия) + .ba-handle (дръжката)
+       JS управлява clip-path и позицията на линията/дръжката.
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="results" data-aos="fade-up">
+    <h2 class="section-title">Преди и след</h2>
+    <p>
+      Всяка усмивка има своята история.<br>
+      Нашите пациенти вече се усмихват с увереност и радост.<br>
+      Вижте реалните промени, които постигаме заедно.
+    </p>
+
+    <div class="results-grid">
+
+      <!-- Двойка 1 -->
+      <div class="ba-card">
+        <div class="ba-box">
+          <div class="ba-img"><img src="1.1.jpg" alt="Преди 1" loading="lazy"></div>
+          <div class="ba-img ba-after"><img src="1.2.jpg" alt="След 1" loading="lazy"></div>
+          <div class="ba-line"></div>
+          <div class="ba-handle"></div>
+        </div>
+      </div>
+
+      <!-- Двойка 2 -->
+      <div class="ba-card">
+        <div class="ba-box">
+          <div class="ba-img"><img src="2.1.jpg" alt="Преди 2" loading="lazy"></div>
+          <div class="ba-img ba-after"><img src="2.2.jpg" alt="След 2" loading="lazy"></div>
+          <div class="ba-line"></div>
+          <div class="ba-handle"></div>
+        </div>
+      </div>
+
+      <!-- Двойка 3 -->
+      <div class="ba-card">
+        <div class="ba-box">
+          <div class="ba-img"><img src="3.1.jpg" alt="Преди 3" loading="lazy"></div>
+          <div class="ba-img ba-after"><img src="3.2.jpg" alt="След 3" loading="lazy"></div>
+          <div class="ba-line"></div>
+          <div class="ba-handle"></div>
+        </div>
+      </div>
+
+      <!-- Двойка 4 -->
+      <div class="ba-card">
+        <div class="ba-box">
+          <div class="ba-img"><img src="4.1.jpg" alt="Преди 4" loading="lazy"></div>
+          <div class="ba-img ba-after"><img src="4.2.jpg" alt="След 4" loading="lazy"></div>
+          <div class="ba-line"></div>
+          <div class="ba-handle"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       9. ФОРМА ЗА ВЪПРОСИ
+       Използва FormSubmit.co – безплатен email сервис, без backend.
+       Стъпки за активиране:
+         1. Качи сайта на хостинг
+         2. Изпрати първото съобщение – FormSubmit изпраща верификационен имейл
+         3. Докторът натиска "Confirm" в имейла
+         4. Оттам нататък всички запитвания пристигат директно в пощата
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="faq-form">
+    <h2 class="section-title">Задайте въпрос</h2>
+    <p class="faq-sub">
+      Изпратете ни вашето запитване или желание за консултация.
+      За записване при Д-р Божена Кочева-Пенева използвайте тази форма –
+      ще се свържем с вас по имейл. При желание можете да прикачите снимка.
+    </p>
+
+    <!-- action = имейлът на доктора (FormSubmit го криптира след верификация) -->
+    <form
+      action="https://formsubmit.co/dr.makki.smilespot@gmail.com"
+      method="POST"
+      enctype="multipart/form-data"
+      class="faq-grid"
+      id="contactForm"
+    >
+      <!-- ── Лява колона: текстови полета ── -->
+      <div class="form-left">
+        <input type="text"  name="name"    placeholder="Вашето име:"   required>
+        <input type="email" name="email"   placeholder="Вашият имейл:" required>
+        <textarea name="message" rows="5"
+          placeholder="Напишете вашето запитване. Ако е за записване при Д-р Божена, отбележете го тук."
+          required></textarea>
+
+        <!-- FormSubmit скрити полета за конфигурация -->
+        <input type="hidden" name="_captcha"      value="false">
+        <input type="hidden" name="_subject"      value="Нов въпрос от сайта">
+        <input type="hidden" name="_autoresponse" value="Благодарим! Получихме съобщението ви и ще се свържем с вас скоро.">
+        <!-- _next = страницата след успешно изпращане (замени с твоя домейн) -->
+        <input type="hidden" name="_next"         value="https://smilespot.bg/blagodarim.html">
+
+        <!-- Submit бутон – JS показва loader при клик -->
+        <button type="submit" id="submitBtn">
+          <span id="btnText">Изпрати въпроса</span>
+          <span id="btnLoader" style="display:none;">⏳ Изпращане...</span>
+        </button>
+        <!-- Успешно съобщение (показва се от JS при submit) -->
+        <p id="formSuccess" class="form-success" style="display:none;">
+          ✅ Съобщението е изпратено успешно!
+        </p>
+      </div>
+
+      <!-- ── Дясна колона: upload зона за снимка ── -->
+      <div class="form-right">
+        <!-- Скрит реален file input – отваря се от .upload-btn -->
+        <input type="file" id="fileUpload" name="attachment" accept="image/*">
+        <!-- Custom styled бутон -->
+        <button type="button" class="upload-btn">Избери / Сменете файл</button>
+      </div>
+
+      <!-- Preview на избраната снимка (показва се от JS) -->
+      <div class="preview-container">
+        <img id="previewImg" src="" alt="Preview" style="display:none;">
+      </div>
+
+    </form>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       10. КОНТАКТИ
+       Grid: адрес/телефон/соц. бутони (1fr) | Google Maps iframe (1.1fr).
+       ══════════════════════════════════════════════════════════════════════ -->
+  <section id="contact" data-aos="fade-up">
+    <h2 class="section-title">Контакти</h2>
+
+    <div class="contact-layout">
+      <!-- Лява колона: информация -->
+      <div class="info">
+        <p><i class="fa-solid fa-location-dot"></i> София, кв. Борово, ул. Невестина скала 5</p>
+        <p><i class="fa-solid fa-phone"></i> +359 88 799 3003</p>
+        <p><i class="fa-solid fa-clock"></i> Пн – Сб: 09:30 – 19:30</p>
+
+        <!-- Социални мрежи -->
+        <div class="social-buttons">
+          <a class="social-btn instagram"
+             href="https://www.instagram.com/smile.spot.bg/"
+             target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> Instagram
+          </a>
+          <a class="social-btn tiktok"
+             href="https://www.tiktok.com/@smile.spot.bg"
+             target="_blank" rel="noopener">
+            <i class="fa-brands fa-tiktok"></i> TikTok
+          </a>
+        </div>
+      </div>
+
+      <!-- Дясна колона: Google Maps (embed URL от Google Maps → Share → Embed) -->
+      <div class="map-wrapper">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2933.670191202293!2d23.28331541170477!3d42.668343971045616!2m3!1f0!2f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8500533f105b%3A0x96673affa448743d!2sSMILE%20SPOT!5e0!3m2!1sbg!2sbg!4v1767795791065!5m2!1sbg!2sbg"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       11. FOOTER
+       ══════════════════════════════════════════════════════════════════════ -->
+  <footer>
+    <p>© 2026 SMILE SPOT | Усмивки с характер 🦷</p>
+    Всички права запазени.
+  </footer>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       12. МОДАЛИ – ЗАПИСВАНЕ НА ЧАС
+       Два отделни модала, по един за всеки лекар.
+       Съдържат Google Calendar Appointment Scheduling iframe.
+       За да получиш нов Calendar URL:
+         Google Calendar → Create → Appointment schedule → View booking page → Copy URL
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- Modal: Д-р Самер Макки -->
+  <div id="calendarModal" class="modal">
+    <div class="modal-content">
+      <!-- X бутон – затваря модала (виж JS долу) -->
+      <span class="close">&times;</span>
+      <h2>Записване на час</h2>
+      <p>Изберете удобен ден и час при Д-р Самер Макки</p>
+      <!-- Google Calendar Appointment iframe – Д-р Макки -->
+      <iframe
+        src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3A457eXpkGapSAupCKKDE3mRq-O5EpyCUL1kx5xHZ72GnzF_GlX51qbI0cyHrThenoI3UsjHod?gv=true"
+        style="border: 0" width="100%" height="600" frameborder="0">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Modal: Д-р Александра Милошева -->
+  <div id="calendarModal2" class="modal">
+    <div class="modal-content">
+      <span class="close2">&times;</span>
+      <h2>Записване на час</h2>
+      <p>Изберете удобен ден и час при Д-р Александра Милошева</p>
+      <!-- Google Calendar Appointment iframe – Д-р Милошева -->
+      <iframe
+        src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ07LEJ9cgMdXvdxy4zKPEJhy4kVeTT7lerY8X0w_IXwOxXD1HyUHFCabdMvhnPSLbdX8VnMmTX7?gv=true"
+        style="border: 0" width="100%" height="600" frameborder="0">
+      </iframe>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       13. GDPR БАНЕР
+       3 бутона: Настрой | Откажи всички | Приеми всички
+       "Настрой" отваря панел с toggles за всяка категория бисквитки.
+       Cookie "gdpr=saved" се записва при всеки избор за 1 година.
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- Главен банер (долна лента) -->
+  <div id="gdpr-banner">
+    <div id="gdpr-text">
+      <strong>Използваме бисквитки 🍪</strong><br>
+      Използваме бисквитки за сигурност и удобно ползване на сайта.<br>
+      Настроите предпочитанията си по-долу.
+    </div>
+    <div id="gdpr-buttons">
+      <button id="gdpr-customize">Настрой</button>
+      <button id="gdpr-reject">Откажи всички</button>
+      <button id="gdpr-accept">Приеми всички</button>
+    </div>
+  </div>
+
+  <!-- Панел за настройка (показва се при "Настрой") -->
+  <div id="gdpr-overlay"></div>
+  <div id="gdpr-panel">
+    <div id="gdpr-panel-header">
+      <h3>Настройки за бисквитки</h3>
+      <button id="gdpr-panel-close">&times;</button>
+    </div>
+
+    <p id="gdpr-panel-intro">
+      Изберете кои категории бисквитки желаете да разрешите.
+      Задължителните бисквитки винаги са активни – без тях сайтът не може да функционира правилно.
+    </p>
+
+    <!-- Категория 1: Задължителни (винаги включени) -->
+    <div class="gdpr-row">
+      <div class="gdpr-row-info">
+        <strong>Задължителни бисквитки</strong>
+        <span>Необходими за основната функционалност на сайта – навигация, сигурност и потребителски сесии. Не могат да бъдат изключени.</span>
+      </div>
+      <label class="gdpr-toggle gdpr-toggle--disabled">
+        <input type="checkbox" id="cookie-necessary" checked disabled>
+        <span class="gdpr-slider"></span>
+      </label>
+    </div>
+
+    <!-- Категория 2: Аналитични -->
+    <div class="gdpr-row">
+      <div class="gdpr-row-info">
+        <strong>Аналитични бисквитки</strong>
+        <span>Помагат ни да разберем как посетителите използват сайта – напр. Google Analytics. Данните са анонимни.</span>
+      </div>
+      <label class="gdpr-toggle">
+        <input type="checkbox" id="cookie-analytics">
+        <span class="gdpr-slider"></span>
+      </label>
+    </div>
+
+    <!-- Категория 3: Маркетингови -->
+    <div class="gdpr-row">
+      <div class="gdpr-row-info">
+        <strong>Маркетингови бисквитки</strong>
+        <span>Използват се за показване на персонализирани реклами и проследяване на ефективността на рекламни кампании.</span>
+      </div>
+      <label class="gdpr-toggle">
+        <input type="checkbox" id="cookie-marketing">
+        <span class="gdpr-slider"></span>
+      </label>
+    </div>
+
+    <!-- Бутони в панела -->
+    <div id="gdpr-panel-footer">
+      <button id="gdpr-save">Запази избора</button>
+      <button id="gdpr-accept-all">Приеми всички</button>
+    </div>
+  </div>
+
+  <style>
+    /* ── GDPR БАНЕР (долна лента) ── */
+    #gdpr-banner {
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2b2b2b;
+      color: #f0f0f0;
+      padding: 18px 28px;
+      border-radius: 14px;
+      font-size: 0.88rem;
+      display: none; /* JS го показва само ако няма cookie */
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      z-index: 10000;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      font-family: 'Nunito', Arial, sans-serif;
+      text-align: center;
+      line-height: 1.6;
+      max-width: 560px;
+      width: calc(100% - 32px);
+      border: 1px solid rgba(255,215,0,0.25);
+    }
+
+    #gdpr-text strong {
+      color: #FFD700;
+      font-size: 0.97rem;
+    }
+
+    /* Трите бутона в банера */
+    #gdpr-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    #gdpr-buttons button {
+      border: none;
+      padding: 9px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    /* Настрой – outline стил */
+    #gdpr-customize {
+      background: transparent;
+      color: #FFD700;
+      border: 2px solid #FFD700 !important;
+    }
+    #gdpr-customize:hover { background: rgba(255,215,0,0.1); }
+
+    /* Откажи всички – сив */
+    #gdpr-reject {
+      background: #555;
+      color: #fff;
+    }
+    #gdpr-reject:hover { background: #666; }
+
+    /* Приеми всички – жълт */
+    #gdpr-accept {
+      background: #FFD700;
+      color: #1a1a1a;
+    }
+    #gdpr-accept:hover { background: #ffea00; }
+
+    /* ── OVERLAY (затъмнява фона при отворен панел) ── */
+    #gdpr-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 10001;
+      backdrop-filter: blur(3px);
+    }
+
+    /* ── ПАНЕЛ ЗА НАСТРОЙКА ── */
+    #gdpr-panel {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border-radius: 20px 20px 0 0;
+      padding: 28px 32px 32px;
+      max-width: 600px;
+      width: 100%;
+      z-index: 10002;
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+      font-family: 'Nunito', Arial, sans-serif;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    /* Хедър на панела */
+    #gdpr-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    #gdpr-panel-header h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.3rem;
+      color: #2b2b2b;
+      margin: 0;
+    }
+
+    #gdpr-panel-close {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #888;
+      line-height: 1;
+      padding: 0 4px;
+      transition: color 0.2s;
+    }
+    #gdpr-panel-close:hover { color: #333; }
+
+    #gdpr-panel-intro {
+      font-size: 0.88rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* Ред с категория + toggle */
+    .gdpr-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .gdpr-row:last-of-type { border-bottom: none; }
+
+    .gdpr-row-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .gdpr-row-info strong {
+      font-size: 0.95rem;
+      color: #222;
+    }
+
+    .gdpr-row-info span {
+      font-size: 0.82rem;
+      color: #777;
+      line-height: 1.5;
+    }
+
+    /* Toggle switch */
+    .gdpr-toggle {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .gdpr-toggle input { opacity: 0; width: 0; height: 0; }
+
+    .gdpr-slider {
+      position: absolute;
+      inset: 0;
+      background: #ccc;
+      border-radius: 26px;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+
+    .gdpr-slider::before {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 3px;
+      bottom: 3px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.25s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Включен toggle – жълт */
+    .gdpr-toggle input:checked + .gdpr-slider { background: #FFD700; }
+    .gdpr-toggle input:checked + .gdpr-slider::before { transform: translateX(22px); }
+
+    /* Disabled toggle (задължителни) */
+    .gdpr-toggle--disabled .gdpr-slider { background: #FFD700; opacity: 0.6; cursor: not-allowed; }
+    .gdpr-toggle--disabled .gdpr-slider::before { transform: translateX(22px); }
+
+    /* Бутони в панела */
+    #gdpr-panel-footer {
+      display: flex;
+      gap: 12px;
+      margin-top: 22px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    #gdpr-panel-footer button {
+      border: none;
+      padding: 11px 22px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 700;
+      font-family: 'Nunito', Arial, sans-serif;
+      font-size: 0.92rem;
+      transition: all 0.2s;
+    }
+
+    #gdpr-save {
+      background: #f0f0f0;
+      color: #333;
+    }
+    #gdpr-save:hover { background: #e0e0e0; }
+
+    #gdpr-accept-all {
+      background: #FFD700;
+      color: #1a1a1a;
+    }
+    #gdpr-accept-all:hover { background: #ffea00; }
+
+    /* Мобилно */
+    @media (max-width: 480px) {
+      #gdpr-panel { padding: 22px 18px 28px; }
+      #gdpr-panel-footer { justify-content: center; }
+    }
+  </style>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       14. JAVASCRIPT
+       Всички скриптове са накрая на <body> за по-бързо зареждане.
+       ══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- Instagram embed (за евентуални embed постове) -->
+  <script async src="https://www.instagram.com/embed.js"></script>
+
+  <!-- AOS library -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    // ── AOS инициализация ──────────────────────────────────────────────────
+    // duration: 1000ms, once: true = анимира се само веднъж при scroll надолу
+    AOS.init({ duration: 1000, once: true });
+
+
+    // ── HAMBURGER МЕНЮ ────────────────────────────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('navLinks');
+
+    // Toggle при клик на бутона
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+
+    // Затваря менюто (извиква се от onclick на nav линковете)
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    }
+
+    // Затваря при клик извън навбара
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+
+    // ── BEFORE/AFTER СЛАЙДЕР ──────────────────────────────────────────────
+    document.querySelectorAll(".ba-box").forEach((ba) => {
+      const after  = ba.querySelector(".ba-after");
+      const line   = ba.querySelector(".ba-line");
+      const handle = ba.querySelector(".ba-handle");
+      let dragging = false;
+
+      // Задава позицията като % от ширината
+      function setToPercent(percent) {
+        after.style.clipPath  = `inset(0 ${100 - percent}% 0 0)`;
+        line.style.left       = percent + "%";
+        handle.style.left     = percent + "%";
+      }
+
+      // Изчислява % от clientX спрямо bounding rect
+      function update(clientX) {
+        const rect = ba.getBoundingClientRect();
+        let x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+        setToPercent((x / rect.width) * 100);
+      }
+
+      // Стартова позиция: 50%
+      setToPercent(50);
+
+      // Mouse events
+      ba.addEventListener("mousedown",  (e) => { dragging = true; update(e.clientX); });
+      window.addEventListener("mousemove", (e) => { if (dragging) update(e.clientX); });
+      window.addEventListener("mouseup",   () => { dragging = false; });
+
+      // Touch events (мобилно)
+      ba.addEventListener("touchstart", (e) => { dragging = true; update(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener("touchmove", (e) => { if (dragging) update(e.touches[0].clientX); }, { passive: true });
+      window.addEventListener("touchend",  () => { dragging = false; });
+    });
+
+
+    // ── REVIEWS КАРУСЕЛ ───────────────────────────────────────────────────
+    // Прост подход: само 1 карта видима наведнъж, контролирана с CSS клас .active
+    const track         = document.getElementById('reviewsTrack');
+    const cards         = Array.from(track.querySelectorAll('.review-card'));
+    const dotsContainer = document.getElementById('revDots');
+    let current = 0;
+
+    // Генерира точките динамично
+    cards.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.classList.add('rev-dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    // Показва само картата с даден индекс
+    function goTo(index) {
+      cards[current].classList.remove('active');
+      document.querySelectorAll('.rev-dot')[current].classList.remove('active');
+      current = (index + cards.length) % cards.length;
+      cards[current].classList.add('active');
+      document.querySelectorAll('.rev-dot')[current].classList.add('active');
+    }
+
+    // Показваме първата карта
+    cards[0].classList.add('active');
+
+    // Стрелки
+    document.getElementById('revPrev').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('revNext').addEventListener('click', () => goTo(current + 1));
+
+    // Auto-play на 5 секунди
+    setInterval(() => goTo(current + 1), 5000);
+
+
+    // ── МОДАЛИ – ЗАПИСВАНЕ НА ЧАС ─────────────────────────────────────────
+
+    // Отваря modal за Д-р Макки
+    function openCalendar() {
+      document.getElementById("calendarModal").style.display = "block";
+    }
+
+    // Отваря modal за Д-р Милошева
+    function openCalendar2() {
+      document.getElementById("calendarModal2").style.display = "block";
+    }
+
+    // X бутони затварят съответния modal
+    document.querySelector(".close").onclick  = () => document.getElementById("calendarModal").style.display  = "none";
+    document.querySelector(".close2").onclick = () => document.getElementById("calendarModal2").style.display = "none";
+
+    // Клик върху тъмния overlay (извън modal-content) затваря модала
+    window.onclick = (event) => {
+      if (event.target === document.getElementById("calendarModal"))  document.getElementById("calendarModal").style.display  = "none";
+      if (event.target === document.getElementById("calendarModal2")) document.getElementById("calendarModal2").style.display = "none";
+    };
+
+    // Escape затваря всички модали
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        document.getElementById("calendarModal").style.display  = "none";
+        document.getElementById("calendarModal2").style.display = "none";
+      }
+    });
+
+
+    // ── UPLOAD PREVIEW ────────────────────────────────────────────────────
+    const fileInput = document.getElementById("fileUpload");
+    const uploadBtn = document.querySelector(".upload-btn");
+    const previewImg = document.getElementById("previewImg");
+
+    // Custom бутонът отваря file dialog
+    uploadBtn.addEventListener("click", () => fileInput.click());
+
+    // При избор на файл – показва preview
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImg.src = e.target.result;
+        previewImg.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    });
+
+
+    // ── ФОРМА LOADING STATE ───────────────────────────────────────────────
+    // При submit: скрива текста на бутона и показва loader
+    const form      = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const btnText   = document.getElementById('btnText');
+    const btnLoader = document.getElementById('btnLoader');
+
+    form.addEventListener('submit', () => {
+      btnText.style.display  = 'none';
+      btnLoader.style.display = 'inline';
+      submitBtn.disabled = true; // Предотвратява двойно изпращане
+    });
+
+
+    // ── GDPR БАНЕР ────────────────────────────────────────────────────────
+    // Използваме localStorage – работи надеждно и се пази между сесиите.
+    // Cookie-то се записва успоредно за съвместимост със сървърни скриптове.
+
+    const gdprBanner   = document.getElementById("gdpr-banner");
+    const gdprOverlay  = document.getElementById("gdpr-overlay");
+    const gdprPanel    = document.getElementById("gdpr-panel");
+    const ONE_YEAR     = 60 * 60 * 24 * 365;
+
+    // Проверява дали клиентът вече е направил избор
+    function gdprAlreadyChosen() {
+      try {
+        return !!localStorage.getItem("gdpr_choice");
+      } catch(e) {
+        // Fallback към cookie ако localStorage не е достъпен
+        return document.cookie.includes("gdpr_choice=");
+      }
+    }
+
+    // Запазва избора в localStorage + cookie и скрива банера/панела
+    function gdprSave(analytics, marketing) {
+      const choice = JSON.stringify({
+        necessary: true,
+        analytics: analytics,
+        marketing: marketing,
+        date: new Date().toISOString()
+      });
+
+      // Записваме в localStorage (основен метод)
+      try {
+        localStorage.setItem("gdpr_choice", choice);
+      } catch(e) {}
+
+      // Записваме и като cookie (резервен метод + сървърна съвместимост)
+      document.cookie = `gdpr_choice=saved; max-age=${ONE_YEAR}; path=/; SameSite=Lax`;
+
+      // Скриваме всичко
+      gdprBanner.style.display  = "none";
+      gdprOverlay.style.display = "none";
+      gdprPanel.style.display   = "none";
+    }
+
+    // При зареждане: показваме банера само ако няма запазен избор
+    if (!gdprAlreadyChosen()) {
+      gdprBanner.style.display = "flex";
+    }
+
+    // "Приеми всички" – включва всичко
+    document.getElementById("gdpr-accept").onclick = () => gdprSave(true, true);
+
+    // "Откажи всички" – само задължителни
+    document.getElementById("gdpr-reject").onclick = () => gdprSave(false, false);
+
+    // "Настрой" – отваря панела
+    document.getElementById("gdpr-customize").onclick = () => {
+      // Зарежда предишния избор ако има такъв
+      try {
+        const prev = JSON.parse(localStorage.getItem("gdpr_choice") || "{}");
+        if (prev.analytics !== undefined)
+          document.getElementById("cookie-analytics").checked = prev.analytics;
+        if (prev.marketing !== undefined)
+          document.getElementById("cookie-marketing").checked = prev.marketing;
+      } catch(e) {}
+
+      gdprBanner.style.display  = "none";
+      gdprOverlay.style.display = "block";
+      gdprPanel.style.display   = "block";
+    };
+
+    // Затваряне на панела с X
+    document.getElementById("gdpr-panel-close").onclick = () => {
+      gdprOverlay.style.display = "none";
+      gdprPanel.style.display   = "none";
+      // Ако още няма направен избор – показваме банера отново
+      if (!gdprAlreadyChosen()) {
+        gdprBanner.style.display = "flex";
+      }
+    };
+
+    // Затваряне при клик върху тъмния overlay
+    gdprOverlay.onclick = () => {
+      document.getElementById("gdpr-panel-close").click();
+    };
+
+    // "Запази избора" – взима стойностите от toggles
+    document.getElementById("gdpr-save").onclick = () => {
+      const analytics = document.getElementById("cookie-analytics").checked;
+      const marketing = document.getElementById("cookie-marketing").checked;
+      gdprSave(analytics, marketing);
+    };
+
+    // "Приеми всички" в панела
+    document.getElementById("gdpr-accept-all").onclick = () => gdprSave(true, true);
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<!--
+  blagodarim.html – Страница след успешно изпращане на формата
+  Пренасочва се автоматично към index.html след 8 секунди.
+  Зарежда се от FormSubmit чрез _next скритото поле във формата.
+-->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Благодарим! | SMILE SPOT</title>
+
+  <!-- Auto-redirect към началната страница след 8 секунди -->
+  <meta http-equiv="refresh" content="8;url=index.html">
+
+  <!-- Същите Google Fonts като основния сайт -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+
+  <style>
+    /* Същите CSS variables като style.css */
+    :root {
+      --gold:       #FFD700;
+      --gold-hover: #ffea00;
+      --dark:       #1a1a1a;
+      --dark-mid:   #2b2b2b;
+      --gray:       #3a3a3a;
+      --text-light: #555555;
+      --bg:         #f5f5f5;
+      --white:      #ffffff;
+      --shadow:     0 15px 40px rgba(0,0,0,0.10);
+      --font-heading: 'Playfair Display', Georgia, serif;
+      --font-body:    'Nunito', Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Главната бяла карта */
+    .thank-card {
+      background: var(--white);
+      border: 2px solid var(--gold);
+      border-radius: 24px;
+      padding: 60px 50px;
+      max-width: 540px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow);
+      animation: fadeUp 0.7s ease both;
+    }
+
+    /* Плавно появяване от долу */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Голям checkmark/зъб емоджи */
+    .thank-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      animation: bounce 1s ease 0.7s both;
+    }
+
+    @keyframes bounce {
+      0%   { transform: scale(0.5); opacity: 0; }
+      70%  { transform: scale(1.15); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Заглавие */
+    .thank-card h1 {
+      font-family: var(--font-heading);
+      font-size: 2.4rem;
+      color: var(--dark-mid);
+      margin-bottom: 16px;
+    }
+
+    /* Основен текст */
+    .thank-card p {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    /* Countdown текст */
+    .countdown-text {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 8px;
+      margin-bottom: 32px;
+    }
+
+    /* Жълта разделителна черта */
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin: 20px auto 28px;
+    }
+
+    /* Бутон обратно */
+    .back-btn {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--dark);
+      padding: 14px 36px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+      box-shadow: 0 4px 14px rgba(255,215,0,0.35);
+    }
+
+    .back-btn:hover {
+      background: var(--gold-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255,215,0,0.45);
+    }
+
+    /* Лого горе */
+    .site-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      margin-bottom: 24px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+
+    /* Малък footer текст */
+    .footer-note {
+      margin-top: 40px;
+      font-size: 0.82rem;
+      color: #bbb;
+      font-family: var(--font-body);
+    }
+
+    /* Мобилно */
+    @media (max-width: 480px) {
+      .thank-card {
+        padding: 40px 24px;
+      }
+      .thank-card h1 {
+        font-size: 1.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="thank-card">
+    <!-- Лого -->
+    <img src="logo.png" alt="Smile Spot Logo" class="site-logo">
+
+    <!-- Анимиран емоджи -->
+    <div class="thank-icon">🦷</div>
+
+    <!-- Заглавие -->
+    <h1>Благодарим!</h1>
+
+    <!-- Жълта черта -->
+    <div class="divider"></div>
+
+    <!-- Съобщение -->
+    <p>Получихме вашето запитване.</p>
+    <p>Нашият екип ще се свърже с вас<br>възможно най-скоро.</p>
+
+    <!-- Countdown до redirect -->
+    <p class="countdown-text">
+      Ще бъдете пренасочени към сайта след <strong id="timer">8</strong> секунди...
+    </p>
+
+    <!-- Бутон за ръчно връщане -->
+    <a href="index.html" class="back-btn">
+      ← Обратно към сайта
+    </a>
+  </div>
+
+  <!-- Малък footer -->
+  <p class="footer-note">© 2026 SMILE SPOT | smile.spot.bg</p>
+
+  <script>
+    // Countdown таймер – обновява числото всяка секунда
+    let seconds = 8;
+    const timerEl = document.getElementById('timer');
+
+    const interval = setInterval(() => {
+      seconds--;
+      timerEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(interval);
+        // Ако meta refresh не е сработил, пренасочваме ръчно
+        window.location.href = 'index.html';
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>

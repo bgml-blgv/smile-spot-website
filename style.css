@@ -1,0 +1,1113 @@
+/* ==========================================================================
+   SMILE SPOT – Главен CSS файл
+   Структура:
+   1.  CSS Променливи (цветове, шрифтове, сенки)
+   2.  Base / Reset
+   3.  Навигация + Hamburger меню (мобилно)
+   4.  Hero секция
+   5.  Бутони
+   6.  Общи секции и заглавия
+   7.  За нас
+   8.  Екип (лекарски карти)
+   9.  Услуги и ценоразпис
+   10. Отзиви (карусел)
+   11. Преди и след (Before/After слайдер)
+   12. Форма за въпроси
+   13. Контакти
+   14. Модали (записване на час)
+   15. Footer
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. CSS ПРОМЕНЛИВИ
+   Всички цветове, шрифтове и сенки са дефинирани тук.
+   Променяш ги само на едно място и важи за целия сайт.
+   ========================================================================== */
+:root {
+  /* Цветове */
+  --gold:        #FFD700;   /* Основен акцент – злато */
+  --gold-hover:  #ffea00;   /* По-светло злато при hover */
+  --dark:        #1a1a1a;   /* Почти черно – текст върху злато */
+  --dark-mid:    #2b2b2b;   /* Заглавия */
+  --gray:        #3a3a3a;   /* Навигация и footer */
+  --text:        #333333;   /* Основен текст */
+  --text-light:  #555555;   /* По-светъл текст (описания) */
+  --bg:          #f5f5f5;   /* Фон на страницата */
+  --white:       #ffffff;
+  --border:      #efefef;   /* Разделители */
+
+  /* Форми */
+  --radius:      16px;
+  --shadow:      0 15px 40px rgba(0,0,0,0.10);
+  --shadow-sm:   0 8px 20px rgba(0,0,0,0.08);
+
+  /* Шрифтове – заредени от Google Fonts в <head> */
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body:    'Nunito', Arial, sans-serif;
+}
+
+
+/* ==========================================================================
+   2. BASE / RESET
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* Плавно скролиране при клик на nav линкове */
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Всички заглавия използват serif шрифта */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--dark-mid);
+}
+
+
+/* ==========================================================================
+   3. НАВИГАЦИЯ + HAMBURGER МЕНЮ
+   Desktop: хоризонтални линкове.
+   Мобилно (<768px): скрити зад hamburger бутон.
+   ========================================================================== */
+.nav {
+  background: var(--gray);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky; /* Остава горе при скролиране */
+  top: 0;
+  z-index: 100;
+  min-height: 56px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav-links a {
+  color: var(--gold);
+  padding: 8px 12px;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  position: relative;
+  transition: color 0.2s;
+}
+
+/* Анимирана жълта черта под линка при hover */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 3px;
+  left: 0;
+  bottom: 2px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Hamburger бутон – скрит на desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  margin-left: auto;
+}
+
+/* Трите черти */
+.hamburger span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Анимация X при отваряне */
+.hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* Мобилна навигация */
+@media (max-width: 768px) {
+  .nav {
+    justify-content: flex-end;
+    padding: 0 16px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* Менюто пада от горе при добавяне на .open клас от JavaScript */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: var(--gray);
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 0 20px;
+    gap: 0;
+    border-top: 2px solid var(--gold);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links a {
+    width: 100%;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 1.05rem;
+    border-bottom: 1px solid rgba(255,215,0,0.1);
+  }
+
+  .nav-links a:last-child { border-bottom: none; }
+  .nav-links a::after { display: none; }
+}
+
+
+/* ==========================================================================
+   4. HERO СЕКЦИЯ
+   Пълноекранен банер с фоново изображение main.jpg.
+   Тъмен overlay за четимост на текста.
+   ========================================================================== */
+.hero {
+  background:
+    linear-gradient(rgba(20,20,20,0.65), rgba(20,20,20,0.65)),
+    url(main.jpg) center/cover;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* H1 – важно за SEO, също и визуално заглавие */
+.hero h1 {
+  font-family: var(--font-heading);
+  color: var(--gold);
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 8px 0 0;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+.hero p {
+  color: rgba(255,255,255,0.88);
+  font-size: 1.15rem;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Кръгло лого с жълта рамка */
+.hero-logo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+  border: 3px solid var(--gold);
+}
+
+@media (max-width: 600px) {
+  .hero h1   { font-size: 2.4rem; }
+  .hero-logo { width: 160px; height: 160px; }
+}
+
+
+/* ==========================================================================
+   5. БУТОНИ
+   .yellow-btn – за <a> линкове (hero, карти)
+   .book-btn   – за <button> елементи
+   ========================================================================== */
+.yellow-btn,
+.book-btn {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--dark);
+  padding: 13px 30px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 0.97rem;
+  transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(255,215,0,0.35);
+}
+
+.yellow-btn:hover,
+.book-btn:hover {
+  background: var(--gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255,215,0,0.45);
+}
+
+
+/* ==========================================================================
+   6. ОБЩИ СЕКЦИИ И ЗАГЛАВИЯ
+   ========================================================================== */
+section {
+  padding: 60px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* Заглавие с жълта декоративна черта */
+.section-title {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--dark-mid);
+  text-align: center;
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--gold);
+  margin: 14px auto 0;
+  border-radius: 2px;
+}
+
+@media (max-width: 600px) {
+  .section-title { font-size: 1.7rem; }
+}
+
+
+/* ==========================================================================
+   7. ЗА НАС
+   Двуколонна решетка: текст вляво, снимки вдясно.
+   ========================================================================== */
+#about {
+  padding-bottom: 20px;
+}
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.about-text p {
+  margin: 0;
+  font-size: 0.97rem;
+  line-height: 1.8;
+  color: #444;
+}
+
+.about-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.about-images img[src="zanas2.png"] {
+  grid-column: span 2;
+  height: 220px;
+}
+
+/* Снимка с hover ефект */
+.about-images img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 3px solid var(--gold);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+@media (max-width: 900px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+
+/* ==========================================================================
+   8. ЕКИП
+   #team е с пълна ширина и светъл фон за визуален контраст.
+   ========================================================================== */
+#team {
+  padding: 60px 20px;
+  background: #f8f9fb;
+  max-width: 100%;
+  text-align: center;
+}
+
+#team > h2 {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.team-row {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.doctor-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 30px 24px;
+  width: 300px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+/* Картата се повдига при hover */
+.doctor-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 24px 50px rgba(0,0,0,0.14);
+}
+
+.doctor-card img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.doctor-card h3 {
+  font-size: 1.25rem;
+  margin: 0 0 4px;
+  color: var(--dark-mid);
+}
+
+/* По-тъмно злато за добър контраст върху бяло */
+.specialty {
+  font-weight: 700;
+  color: #b8960a;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.education {
+  font-size: 0.92rem;
+  color: var(--text-light);
+  line-height: 1.65;
+  margin-bottom: 6px;
+}
+
+/* НЗОК лого – малко и пропорционално */
+.nzok-mini {
+  height: 28px !important;
+  width: auto !important;
+  max-width: 55px !important;
+  object-fit: contain !important;
+  margin-bottom: 8px !important;
+}
+
+
+/* ==========================================================================
+   9. УСЛУГИ И ЦЕНОРАЗПИС
+   Всяка .service-item има жълт .card хедър и ul.prices под него.
+   Всеки li е grid: описание (1fr) | цена (auto).
+   ========================================================================== */
+#services {
+  padding-top: 60px;
+}
+
+.services.services--stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.service-item {
+  width: 100%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Жълт хедър на категорията */
+.service-item > .card {
+  background: var(--gold);
+  color: var(--dark);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 16px 20px;
+  font-weight: 800;
+  font-size: 1.05rem;
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: default;
+}
+
+.service-item > .card i { font-size: 1.2rem; }
+
+/* Бял списък с процедури */
+.service-item > ul.prices {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--white);
+  border-radius: 0 0 var(--radius) var(--radius);
+  border: 1px solid var(--border);
+  border-top: none;
+}
+
+/* Ред: описание вляво | цена вдясно */
+.service-item > ul.prices > li {
+  list-style: none;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid #f4f4f4;
+  font-size: 0.96rem;
+  transition: background 0.15s;
+}
+
+/* Жълт highlight при hover */
+.service-item > ul.prices > li:hover { background: #fffdf0; }
+.service-item > ul.prices > li:last-child { border-bottom: none; }
+
+.service-item > ul.prices > li > span:first-child {
+  color: #222;
+  line-height: 1.45;
+}
+
+/* Цената не се пренася и е удебелена */
+.service-item > ul.prices > li > span:last-child {
+  white-space: nowrap;
+  font-weight: 800;
+  color: var(--dark);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Мобилно – цената под описанието */
+@media (max-width: 580px) {
+  .service-item > ul.prices > li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .service-item > ul.prices > li > span:last-child {
+    color: #b8960a;
+    font-size: 0.97rem;
+  }
+}
+
+
+/* ==========================================================================
+   10. ОТЗИВИ – КАРУСЕЛ
+   .reviews-track се движи с translateX от JavaScript.
+   2 карти видими на desktop, 1 на мобилно.
+   Auto-play на 5 секунди.
+   ========================================================================== */
+#reviews {
+  padding: 60px 20px;
+  max-width: 1100px;
+  margin: auto;
+  text-align: center;
+}
+
+/* overflow:hidden крие картите извън видимата зона */
+.reviews-carousel {
+  position: relative;
+}
+
+/* Лентата е обикновен контейнер – JS добавя .active на видимата карта */
+.reviews-track {
+  display: block;
+}
+
+/* По подразбиране всички карти са скрити */
+.review-card {
+  display: none;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 30px 36px;
+  box-shadow: var(--shadow-sm);
+  border-left: 5px solid var(--gold);
+  text-align: left;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 780px;
+  margin: 0 auto;
+  animation: fadeCard 0.4s ease;
+}
+
+/* Само активната карта се показва */
+.review-card.active {
+  display: flex;
+}
+
+/* Плавно появяване при смяна */
+@keyframes fadeCard {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.review-stars {
+  color: var(--gold);
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+}
+
+.review-card p {
+  font-size: 0.97rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  margin: 0;
+  font-style: italic;
+}
+
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+}
+
+/* Кръгъл аватар с инициал */
+.review-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.review-author span {
+  font-size: 0.88rem;
+  color: #888;
+  font-weight: 600;
+}
+
+/* Навигация (стрелки + точки) */
+.reviews-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.rev-btn {
+  background: var(--gold);
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--dark);
+  transition: background 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rev-btn:hover {
+  background: var(--gold-hover);
+  transform: scale(1.1);
+}
+
+.rev-dots { display: flex; gap: 8px; }
+
+.rev-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ddd;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+
+/* Активна точка */
+.rev-dot.active {
+  background: var(--gold);
+  transform: scale(1.3);
+}
+
+
+/* ==========================================================================
+   11. ПРЕДИ И СЛЕД (BEFORE/AFTER СЛАЙДЕР)
+   .ba-after се клипва с clip-path inset().
+   JavaScript мести clip-path, .ba-line и .ba-handle при drag.
+   ========================================================================== */
+#results {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+#results > p {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+  color: var(--text-light);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+@media (max-width: 640px) {
+  .results-grid { grid-template-columns: 1fr; }
+}
+
+.ba-card {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 12px;
+  border: 2px solid var(--gold);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Интерактивният контейнер */
+.ba-box {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: ew-resize;
+  background: #000;
+}
+
+.ba-img {
+  position: absolute;
+  inset: 0;
+}
+
+.ba-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  pointer-events: none; /* Не блокира drag събитията */
+}
+
+/* "След" снимката – clip-path се мести от JS */
+.ba-after {
+  clip-path: inset(0 50% 0 0);
+}
+
+/* Жълтата разделителна линия */
+.ba-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 100%;
+  background: var(--gold);
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+/* Хванатата дръжка */
+.ba-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 28px;
+  background: var(--gold);
+  border-radius: 14px;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  cursor: ew-resize;
+}
+
+/* Стрелки в дръжката – чисто CSS */
+.ba-handle::before,
+.ba-handle::after {
+  content: "";
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+.ba-handle::before { border-right: 9px solid white; }
+.ba-handle::after  { border-left:  9px solid white; }
+
+
+/* ==========================================================================
+   12. ФОРМА ЗА ВЪПРОСИ
+   Двуколонна: полета вляво | upload зона вдясно.
+   ========================================================================== */
+#faq-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--white);
+  border: 2px solid var(--gold);
+  border-radius: 20px;
+  padding: 60px 25px;
+  max-width: 1100px;
+  margin: 60px auto;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+#faq-form h2 { font-family: var(--font-heading); }
+
+.faq-sub {
+  color: var(--text-light);
+  margin-bottom: 35px;
+  max-width: 680px;
+}
+
+#faq-form form {
+  max-width: 900px;
+  width: 100%;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  width: 100%;
+  max-width: 900px;
+  align-items: center;
+}
+
+.form-left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-left input,
+.form-left textarea {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Жълт focus ring */
+.form-left input:focus,
+.form-left textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(255,215,0,0.2);
+  outline: none;
+}
+
+/* Submit бутон */
+.form-left button[type="submit"] {
+  align-self: center;
+  width: 70%;
+  max-width: 260px;
+  background: var(--gold);
+  border: none;
+  padding: 15px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+  color: var(--dark);
+}
+
+.form-left button[type="submit"]:hover {
+  background: var(--gold-hover);
+  transform: translateY(-2px);
+}
+
+/* Деактивиран по време на изпращане */
+.form-left button[type="submit"]:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-success {
+  color: #2e7d32;
+  font-weight: 600;
+  font-size: 0.97rem;
+}
+
+/* Upload зона – дясна колона */
+.form-right {
+  position: relative;
+  border: 2px dashed var(--gold);
+  border-radius: var(--radius);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 320px;
+  background-color: var(--white);
+  overflow: hidden;
+}
+
+/* Полупрозрачен watermark зъб */
+.form-right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("https://www.dinkadental.com/wp-content/uploads/2014/11/thumbnail.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 200px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.form-right * { position: relative; z-index: 2; }
+
+/* Реалният input е скрит – custom бутонът го отваря */
+#fileUpload { display: none; }
+
+.upload-btn {
+  background: var(--gold);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: var(--font-body);
+  font-size: 0.97rem;
+  color: var(--dark);
+  transition: background 0.25s, transform 0.25s;
+}
+
+.upload-btn:hover {
+  background: var(--gold-hover);
+  transform: translateY(-2px);
+}
+
+.preview-container {
+  margin-top: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.preview-container img {
+  max-width: 180px;
+  max-height: 180px;
+  border-radius: 12px;
+  border: 2px solid var(--gold);
+  box-shadow: var(--shadow-sm);
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .faq-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+}
+
+
+/* ==========================================================================
+   13. КОНТАКТИ
+   Двуколонна: адрес/соц. вляво | Google Maps вдясно.
+   ========================================================================== */
+.contact-layout {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.info p {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  color: var(--dark);
+}
+
+/* Font Awesome иконки – фиксирана ширина за наравняване */
+.info p i {
+  color: var(--gold);
+  margin-right: 8px;
+  width: 20px;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 14px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-radius: 12px;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-family: var(--font-body);
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.14);
+}
+
+.social-btn i { font-size: 1.15rem; }
+
+.instagram {
+  background: linear-gradient(45deg, #f9ce34, #ee2a7b, #6228d7);
+}
+
+.instagram:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.tiktok { background: #111; }
+
+.tiktok:hover {
+  background: #222;
+  transform: translateY(-3px);
+}
+
+.map-wrapper iframe {
+  width: 100%;
+  height: 380px;
+  border: 0;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 768px) {
+  .contact-layout { grid-template-columns: 1fr; }
+  .map-wrapper iframe { height: 280px; }
+}
+
+
+/* ==========================================================================
+   14. МОДАЛИ (ЗАПИСВАНЕ НА ЧАС)
+   Overlay покрива целия екран. Съдържа Google Calendar iframe.
+   Затваря се с .close / .close2, клик извън или Escape.
+   ========================================================================== */
+.modal {
+  display: none; /* JavaScript добавя display:block при отваряне */
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background: var(--white);
+  max-width: 900px;
+  width: 95%;
+  max-height: 90vh;
+  margin: 30px auto;
+  padding: 30px;
+  border-radius: 20px;
+  position: relative;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.25);
+}
+
+.modal-content h2 { font-family: var(--font-heading); }
+
+/* X бутони за затваряне */
+.close,
+.close2 {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.close:hover,
+.close2:hover { color: var(--dark); }
+
+
+/* ==========================================================================
+   15. FOOTER
+   ========================================================================== */
+footer {
+  background: var(--gray);
+  color: var(--gold);
+  text-align: center;
+  padding: 24px 20px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
