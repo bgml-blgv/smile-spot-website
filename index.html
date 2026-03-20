@@ -503,13 +503,12 @@
         <input type="hidden" name="_captcha"      value="false">
         <input type="hidden" name="_subject"      value="Нов въпрос от сайта">
         <input type="hidden" name="_autoresponse" value="Благодарим! Получихме съобщението ви и ще се свържем с вас скоро.">
-        <!-- _next = страницата след успешно изпращане (замени с твоя домейн) -->
-        <input type="hidden" name="_next"         value="https://smilespot.bg/blagodarim.html">
+        
 
         <!-- Submit бутон – JS показва loader при клик -->
         <button type="submit" id="submitBtn">
           <span id="btnText">Изпрати въпроса</span>
-          <span id="btnLoader" style="display:none;">⏳ Изпращане...</span>
+          <span id="btnLoader" style="display:none;">⏳ Изпращаме... моля изчакайте</span>
         </button>
         <!-- Успешно съобщение (показва се от JS при submit) -->
         <p id="formSuccess" class="form-success" style="display:none;">
@@ -1122,11 +1121,16 @@
     const btnText   = document.getElementById('btnText');
     const btnLoader = document.getElementById('btnLoader');
 
-    form.addEventListener('submit', () => {
-      btnText.style.display  = 'none';
-      btnLoader.style.display = 'inline';
-      submitBtn.disabled = true; // Предотвратява двойно изпращане
-    });
+    form.addEventListener('submit', (e) => {
+  btnText.style.display = 'none';
+  btnLoader.style.display = 'inline';
+  submitBtn.disabled = true;
+
+  // изчакваме да се изпрати формата
+  setTimeout(() => {
+    window.location.href = "/blagodarim.html";
+  }, 3000);
+});
 
 
     // ── GDPR БАНЕР ────────────────────────────────────────────────────────
